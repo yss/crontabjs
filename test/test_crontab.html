@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../src/crontab.js"></script>
+<script>
+var timer = new Crontab(1000);
+
+timer.on(1500, function() {
+    console.log(1500 + 's will run last.');
+});
+timer.on(1200, function() {
+    console.log(1200 + 's will run middle.');
+});
+timer.one(1000, function() {
+    console.log(1000 + 's will run first.');
+});
+
+</script>
+</body>
+</html>
