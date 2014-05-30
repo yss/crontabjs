@@ -21,14 +21,18 @@ Crontab.prototype = {
      * register a setInterval
      * @param {Number} time
      * @param {Function} fn
+     * @param {Any} [context]
      * @return {Number}
      */
-    on: function(time, fn) {
-        this._stack[++this._id] = {
+    on: function(time, fn, context) {
+        var obj = {
             time: time,
             last: new Date().getTime(),
             fn: fn
         };
+
+        context && (obj.context = context);
+        this._stack[++this._id] = obj;
         return this._id;
     },
 
@@ -48,14 +52,15 @@ Crontab.prototype = {
      * register once. equal to setTimeout
      * @param {Number} time
      * @param {Function} fn
+     * @param {Any} [context]
      * @return {Number}
      */
-    one: function(time, fn) {
+    one: function(time, fn, context) {
         var _this = this;
         var id =_this.on(time, function() {
             fn && fn.call(this);
             _this.off(id);
-        });
+        }, context);
 
         return id;
     },
@@ -111,12 +116,20 @@ Crontab.prototype = {
             }
         }
 
+        // empty
+        if (!runFn.length) {
+            return;
+        }
+
+        // sort by time desc
         runFn.sort(function(a, b) {
             return a.t < b.t;
         });
 
+        currTime -= this._error;
         while ((key = runFn.pop())) {
-            stack[key.k].fn.call(win);
+            stack[key.k].fn.call(stack[key.k].context || win);
+            stack[key.k].last = currTime;
         }
     }
 }
