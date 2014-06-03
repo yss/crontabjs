@@ -1,5 +1,7 @@
 (function(win) {
 
+var instance = null;
+
 /**
  * for manage setTimeout and setInterval
  * @param {Number} [interval] default: 400ms
@@ -13,7 +15,7 @@ function Crontab(interval, error) {
     this._id = 0;
     this._error = error || 100;
     this.setInterval(interval);
-    return this;
+    return (instance = this);
 }
 
 Crontab.prototype = {
@@ -27,7 +29,7 @@ Crontab.prototype = {
     on: function(time, fn, context) {
         var obj = {
             time: time,
-            last: new Date().getTime(),
+            last: this._getTime(),
             fn: fn
         };
 
@@ -102,7 +104,7 @@ Crontab.prototype = {
 
     _run: function() {
         var stack = this._stack,
-            currTime = new Date().getTime() + this._error,
+            currTime = this._getTime() + this._error,
             key,
             runTime,
             runFn = [];
@@ -128,10 +130,24 @@ Crontab.prototype = {
 
         currTime -= this._error;
         while ((key = runFn.pop())) {
-            stack[key.k].fn.call(stack[key.k].context || win);
             stack[key.k].last = currTime;
+            stack[key.k].fn.call(stack[key.k].context || win);
         }
+    },
+
+    /**
+     * get the current Time, unit is ms
+     */
+    _getTime: function() {
+        return Date.now ? Date.now() : +new Date();
     }
+}
+
+/**
+ * for global invoke.
+ */
+Crontab.getInstance = function() {
+    return instance || Crontab();
 }
 
 win.Crontab = Crontab;

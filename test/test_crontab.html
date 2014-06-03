@@ -2,21 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Crontab.js tests</title>
 </head>
 <body>
 <script src="../src/crontab.js"></script>
 <script>
 var timer = new Crontab(1000);
 
+console.info('Add interval for 1500ms');
 timer.on(1500, function() {
-    console.log(1500 + 's will run last.');
+    console.log(1500 + 'ms will run last.');
 });
-timer.on(1200, function() {
-    console.log(1200 + 's will run middle.');
+console.info('Add interval for 1200ms. with use Crontab.getInstance');
+Crontab.getInstance().on(1200, function() {
+    console.log(1200 + 'ms will run middle.');
 });
-timer.one(1000, function() {
-    console.log(1000 + 's will run first.');
+console.info('Add timeout for 1000ms. with use Crontab.getInstance');
+Crontab.getInstance().one(1000, function() {
+    console.log(1000 + 'ms will run first and only once.');
+});
+
+console.warn('Add timeout for 3300ms. stop the interval by use Crontab.getInstance when timeout.')
+timer.one(3300, function() {
+    console.log(3300 + 'ms will end the crontab.');
+    Crontab.getInstance().stop();
 });
 
 </script>

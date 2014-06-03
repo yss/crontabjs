@@ -15,6 +15,11 @@ Crontab(interval, error)
 * `interval` the interval time of crontab run. unit is ms, default is 400ms.
 * `error` the maximum error of current time and last execute time. if `currTime + error - lastExecuteTime - intervalTime` greater than 0, then this item will be run.
 
+#### getInstance()
+
+Also, you can use `var crontab = Crontab.getInstance();` to get the only one instance.
+
+This is for global invoke. return the last instance of Crontab. If no instance, create a new one.
 
 ### Method
 

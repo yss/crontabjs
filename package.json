@@ -1,7 +1,7 @@
 {
   "name": "crontab.js",
   "description": "The manager of setInterval and setTimeout.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/yss/",
   "author": {
     "name": "yansong",
