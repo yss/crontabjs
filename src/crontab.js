@@ -157,7 +157,7 @@ Crontab.getInstance = function() {
 // for node environment
 if ( typeof module === "object" && module && typeof module.exports === "object" ) {
     module.exports = Crontab;
-} else if ( typeof define === "function" && define.amd ) {
+} else if ( typeof define === "function" && (define.amd || define.cmd)) {
     // for cmd, amd
     define("crontab", [], function() { return Crontab; } );
 } else {
