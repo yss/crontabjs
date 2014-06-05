@@ -1,4 +1,8 @@
-(function(win) {
+/**
+ * Author: yss
+ */
+
+(function(global) {
 
 var instance = null;
 
@@ -76,7 +80,7 @@ Crontab.prototype = {
         if (this._timer) {
             return;
         }
-        _this._timer = win.setInterval(function() {
+        _this._timer = setInterval(function() {
             _this._run();
         }, _this._interval);
     },
@@ -85,7 +89,7 @@ Crontab.prototype = {
      * stop the crontab.
      */
     stop: function() {
-        this._timer && win.clearInterval(this._timer);
+        this._timer && clearInterval(this._timer);
         this._timer = null;
     },
 
@@ -131,7 +135,7 @@ Crontab.prototype = {
         currTime -= this._error;
         while ((key = runFn.pop())) {
             stack[key.k].last = currTime;
-            stack[key.k].fn.call(stack[key.k].context || win);
+            stack[key.k].fn.call(stack[key.k].context || global);
         }
     },
 
@@ -150,5 +154,14 @@ Crontab.getInstance = function() {
     return instance || Crontab();
 }
 
-win.Crontab = Crontab;
-})(window);
+// for node environment
+if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    module.exports = Crontab;
+} else if ( typeof define === "function" && define.amd ) {
+    // for cmd, amd
+    define("crontab", [], function() { return Crontab; } );
+} else {
+    // for global environment. like window
+    global.Crontab = Crontab;
+}
+})(this);

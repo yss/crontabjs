@@ -2,11 +2,11 @@
 
 the manager of setInterval and setTimeout.
 
-## the core of the idea
+## The core of the idea
 
 Maintaining a queue, iterate over all those queue and execute it if needed when every time start.
 
-## implementation
+## Implementation
 
 ### Class
 
@@ -52,3 +52,7 @@ stop run crontab.
 restart set the interval time of crontab run.
 
 this will run `stop` and `start` method in turn when it invoked.
+
+## LICENSE
+
+Apache License 2.0
