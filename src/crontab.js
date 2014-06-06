@@ -13,7 +13,7 @@ var instance = null;
  */
 function Crontab(interval, error) {
     if (!(this instanceof Crontab)) {
-        return new Crontab(interval);
+        return new Crontab(interval, error);
     }
     this._stack = {};
     this._id = 0;
