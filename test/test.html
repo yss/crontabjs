@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>crontab.js tests</title>
+    <link href="http://cdn.staticfile.org/mocha/1.20.1/mocha.css" rel="stylesheet">
+</head>
+<body>
+    <div id="mocha"></div>
+    <div id="container"></div>
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/mocha/1.20.1/mocha.js"></script>
+<script src="http://cdn.staticfile.org/should.js/should.js/3.1.4/should.min.js"></script>
+<script>mocha.setup('bdd')</script>
+<script src="../src/crontab.js"></script>
+<script src="crontab_test.js"></script>
+<script>mocha.run()</script>
+</body>
+</html>
