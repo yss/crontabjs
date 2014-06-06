@@ -31,7 +31,7 @@ register a function. same as `window.setInterval`.
 * `fn` means the function which wait for run.
 * `context` means the context of fn.
 
-#### one(time, fn[, isRun])
+#### one(time, fn[, context])
 
 like `on`, register once. same as `window.setTimeout`.
 
@@ -49,7 +49,7 @@ stop run crontab.
 
 #### setInterval
 
-restart set the interval time of crontab run.
+set the interval time of crontab run.
 
 this will run `stop` and `start` method in turn when it invoked.
 
