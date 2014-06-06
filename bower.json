@@ -1,0 +1,13 @@
+{
+  "name": "crontab",
+  "version": "1.0.0",
+  "main": "./src/crontab.js",
+  "ignore": [
+    "**/.*",
+    "test",
+    "README_zh_CN.md",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ]
+}
