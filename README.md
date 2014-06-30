@@ -6,6 +6,10 @@ the manager of setInterval and setTimeout.
 
 Maintaining a queue, iterate over all those queue and execute it if needed when every time start.
 
+## Install
+
+`npm install crontab.js`
+
 ## Implementation
 
 ### Class
