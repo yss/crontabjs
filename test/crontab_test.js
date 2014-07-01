@@ -1,3 +1,7 @@
+if ('undefined' !== typeof module.exports) {
+    Crontab = require('../src/crontab.js');
+    Should = require('should');
+}
 (function() {
 var timer,
     result = [],
@@ -31,7 +35,7 @@ describe('crontab.js', function() {
     });
 
     this.timeout(5000);
-    describe('Use Window.setTimeout and time set 4000ms.', function() {
+    describe('Use setTimeout and time set 4000ms.', function() {
         it('In the first five item of result must be ' + expectResult.join(' '), function(done) {
             setTimeout(function() {
                 result.slice(0, 5).should.eql(expectResult);

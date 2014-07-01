@@ -8,7 +8,7 @@ Maintaining a queue, iterate over all those queue and execute it if needed when 
 
 ## Install
 
-`npm install crontab.js`
+`npm install crontabjs`
 
 ## Implementation
 
@@ -56,6 +56,19 @@ stop run crontab.
 set the interval time of crontab run.
 
 this will run `stop` and `start` method in turn when it invoked.
+
+## Test
+
+```js
+# test in browser
+npm run-script browser
+
+# test in terminal
+mocha
+# or
+npm run-script test
+
+```
 
 ## LICENSE
 

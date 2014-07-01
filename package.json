@@ -1,7 +1,7 @@
 {
   "name": "crontab.js",
   "description": "The manager of setInterval and setTimeout.",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "homepage": "https://github.com/yss/",
   "author": {
     "name": "yansong",
@@ -9,23 +9,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/yss/crontab.js.git"
+    "url": "git://github.com/yss/crontabjs.git"
   },
   "bugs": {
-    "url": "https://github.com/yss/crontab.js/issues"
+    "url": "https://github.com/yss/crontabjs/issues"
   },
   "licenses": [
     {
       "type": "Apache v2",
-      "url": "https://github.com/yss/crontab.js/blob/master/LICENSE"
+      "url": "https://github.com/yss/crontabjs/blob/master/LICENSE"
     }
   ],
   "main": "./src/crontab.js",
   "scripts": {
-    "test": "open ./test/test.html"
+    "browser": "open ./test/test.html",
+    "test": "mocha"
   },
   "keywords": [
     "crontab",
+    "setInterval",
+    "setTimeout",
+    "crontabjs",
     "crontab.js"
   ]
 }
