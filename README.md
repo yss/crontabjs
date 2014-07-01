@@ -29,7 +29,7 @@ This is for global invoke. return the last instance of Crontab. If no instance, 
 
 #### on(time, fn[, context])
 
-register a function. same as `window.setInterval`.
+register a function. same as `setInterval`.
 
 * `time` means the interval of function run. the unit is `ms`
 * `fn` means the function which wait for run.
@@ -37,7 +37,7 @@ register a function. same as `window.setInterval`.
 
 #### one(time, fn[, context])
 
-like `on`, register once. same as `window.setTimeout`.
+like `on`, register once. same as `setTimeout`.
 
 #### off([id])
 

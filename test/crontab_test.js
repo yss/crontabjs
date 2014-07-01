@@ -1,4 +1,4 @@
-if ('undefined' !== typeof module.exports) {
+if ('object' === typeof module && 'undefined' !== typeof module.exports) {
     Crontab = require('../src/crontab.js');
     Should = require('should');
 }
