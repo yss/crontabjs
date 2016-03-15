@@ -9,28 +9,28 @@ var instance = null;
 /**
  * for manage setTimeout and setInterval
  * @param {Number} [interval] default: 400ms
- * @param {Number} [error] default: 100ms error < interval
+ * @param {Number} [tolerance] default: 100ms tolerance < interval
  */
-function Crontab(interval, error) {
+function Crontab(interval, tolerance) {
     if (!(this instanceof Crontab)) {
-        return new Crontab(interval, error);
+        return new Crontab(interval, tolerance);
     }
     this._stack = {};
     this._id = 0;
-    this._error = error || 100;
-    this.setInterval(interval);
-    return (instance = this);
+    this._tolerance = tolerance || 100;
+    this.setIntervalTime(interval);
+    return this;
 }
 
 Crontab.prototype = {
     /**
      * register a setInterval
-     * @param {Number} time
      * @param {Function} fn
+     * @param {Number} time
      * @param {Any} [context]
      * @return {Number}
      */
-    on: function(time, fn, context) {
+    on: function(fn, time, context) {
         var obj = {
             time: time,
             last: this._getTime(),
@@ -56,19 +56,49 @@ Crontab.prototype = {
 
     /**
      * register once. equal to setTimeout
-     * @param {Number} time
      * @param {Function} fn
+     * @param {Number} time
      * @param {Any} [context]
      * @return {Number}
      */
-    one: function(time, fn, context) {
+    one: function(fn, time, context) {
         var _this = this;
-        var id =_this.on(time, function() {
+        var id =_this.on(function() {
             fn && fn.call(this);
             _this.off(id);
-        }, context);
+        }, time, context);
 
         return id;
+    },
+
+    /**
+     * alias to `on`
+     */
+    setInterval: function() {
+        this.on.apply(this, arguments);
+    },
+
+    /**
+     * alias to `off(id)`
+     * @param {Number} id
+     */
+    clearInterval: function(id) {
+        id && this.off(id);
+    },
+
+    /**
+     * alias to `one`
+     */
+    setTimeout: function() {
+        this.one.apply(this, arguments);
+    },
+
+    /**
+     * alias to `off(id)`
+     * @param {Number} id
+     */
+    clearTimeout: function(id) {
+        id && this.off(id);
     },
 
     /**
@@ -94,10 +124,10 @@ Crontab.prototype = {
     },
 
     /**
-     * set the interval config
+     * set the config of interval
      * @param {Number} [interval] default: 400ms
      */
-    setInterval: function(interval) {
+    setIntervalTime: function(interval) {
         interval = interval || 400;
         if (this._interval !== interval) {
             this._interval = interval;
@@ -106,9 +136,19 @@ Crontab.prototype = {
         }
     },
 
+    /**
+     * set the config of tolerance
+     * @param tolerance
+     */
+    setToleranceTime: function(tolerance) {
+        if (tolerance && tolerance >= 0 && this._interval > tolerance) {
+            this._tolerance = tolerance;
+        }
+    },
+
     _run: function() {
         var stack = this._stack,
-            currTime = this._getTime() + this._error,
+            currTime = this._getTime() + this._tolerance,
             key,
             runTime,
             runFn = [];
@@ -132,7 +172,7 @@ Crontab.prototype = {
             return a.t < b.t;
         });
 
-        currTime -= this._error;
+        currTime -= this._tolerance;
         while ((key = runFn.pop())) {
             stack[key.k].last = currTime;
             stack[key.k].fn.call(stack[key.k].context || global);
@@ -145,14 +185,14 @@ Crontab.prototype = {
     _getTime: function() {
         return Date.now ? Date.now() : +new Date();
     }
-}
+};
 
 /**
  * for global invoke.
  */
 Crontab.getInstance = function() {
     return instance || Crontab();
-}
+};
 
 // for node environment
 if ( typeof module === "object" && module && typeof module.exports === "object" ) {

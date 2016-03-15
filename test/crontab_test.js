@@ -3,33 +3,34 @@ if ('object' === typeof module && 'undefined' !== typeof module.exports) {
     Should = require('should');
 }
 (function() {
-var timer,
+var expectResult = [1000, 1200, 1500, 1200, 1500],
     result = [],
-    expectResult = [1000, 1200, 1500, 1200, 1500];
+    crontab;
 describe('crontab.js', function() {
-    describe('Create a default crontab: timer = new Crontab().', function() {
-        timer = new Crontab();
+    describe('Create a default crontab: crontab = new Crontab().', function() {
+        crontab = new Crontab();
 
-        it('The return value of Crontab.getInstance() must equal to timer.', function() {
-            Should(Crontab.getInstance()).be.exactly(timer);
-        });
+        // move it for can create more instance of crontab
+        //it('The return value of Crontab.getInstance() must equal to crontab.', function() {
+        //    Should(Crontab.getInstance()).be.exactly(crontab);
+        //});
 
         it('Add interval for 1500ms. push 1500 in result array if it run.', function() {
-            timer.on(1500, function() {
+            crontab.setInterval(function() {
                 result.push(1500);
-            });
+            }, 1500);
         });
 
         it('Add interval for 1200ms. push 1200 in result array if it run.', function() {
-            timer.on(1200, function() {
+            crontab.setInterval(function() {
                 result.push(1200);
-            });
+            }, 1200);
         });
 
         it('Add timeout for 1000ms. push 1000 in result array if it run.', function() {
-            timer.one(1000, function() {
+            crontab.setTimeout(function() {
                 result.push(1000);
-            });
+            }, 1000);
         });
 
     });
@@ -43,5 +44,6 @@ describe('crontab.js', function() {
             }, 4000);
         });
     });
+
 });
 })();
