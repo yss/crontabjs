@@ -1,7 +1,7 @@
 {
   "name": "crontabjs",
   "description": "The manager of setInterval and setTimeout.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "homepage": "https://github.com/yss/",
   "author": {
     "name": "yansong",
@@ -28,6 +28,7 @@
     "crontab.js"
   ],
   "devDependencies": {
+    "mocha": "^3.4.2",
     "should": "^8.2.2"
   }
 }
